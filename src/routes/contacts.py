@@ -11,7 +11,7 @@ router = APIRouter(prefix='/contacts', tags=['contacts'])
 
 @router.get('/', response_model=list[ContactResponse])
 async def get_contacts(limit: int = Query(10, ge=10, le=500),
-                       offset: int =Query(0, ge=0), db: AsyncSession = Depends(get_db)):
+                       offset: int = Query(0, ge=0), db: AsyncSession = Depends(get_db)):
     contacts = await repositories_contacts.get_contacts(limit, offset, db)
     return contacts
 
@@ -42,3 +42,20 @@ async def update_contact(body: ContactUpdateSchema, contact_id: int = Path(ge=1)
 async def delete_contact(contact_id: int, db: AsyncSession = Depends(get_db)):
     contact = await repositories_contacts.delete_contact(contact_id, db)
     return contact
+
+
+@router.get('/search/')
+async def search(
+        first_name: str = Query(None, description='Search by first_name'),
+        second_name: str = Query(None, description='Search by second_name'),
+        email: str = Query(None, description='Search by email'),
+        db: AsyncSession = Depends(get_db)
+):
+    contacts = await repositories_contacts.search_contacts(first_name, second_name, email, db)
+    return contacts
+
+
+@router.get('/birthday/')
+async def get_birthday(db: AsyncSession = Depends(get_db)):
+    contacts = await repositories_contacts.get_contacts_birthday(db)
+    return {"contacts": contacts}

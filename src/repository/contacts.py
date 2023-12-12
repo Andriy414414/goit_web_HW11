@@ -1,6 +1,8 @@
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
+from datetime import datetime, timedelta
 
+from sqlalchemy import select, func
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import or_
 from src.entity.models import Contact
 from src.schemas.contact import ContactSchema, ContactUpdateSchema
 
@@ -49,3 +51,31 @@ async def delete_contact(contact_id: int, db: AsyncSession):
         await db.delete(contact)
         await db.commit()
     return contact
+
+
+async def search_contacts(first_name: str, second_name: str, email: str, db: AsyncSession):
+    stmt = select(Contact)
+
+    if first_name:
+        stmt = stmt.filter(Contact.first_name == first_name)
+    if second_name:
+        stmt = stmt.filter(Contact.second_name == second_name)
+    if email:
+        stmt = stmt.filter(Contact.email == email)
+
+    contacts = await db.execute(stmt)
+    return contacts.scalars().all()
+
+
+async def get_contacts_birthday(db: AsyncSession):
+    today = datetime.today()
+    week_from_now = today + timedelta(days=7)
+
+    stmt = select(Contact).filter(
+        func.date_part('month', Contact.birthday) == today.month,
+        func.date_part('day', Contact.birthday) >= today.day,
+        func.date_part('day', Contact.birthday) <= week_from_now.day
+    )
+
+    contacts = await db.execute(stmt)
+    return [{"name": contact.first_name, "birthday": contact.birthday} for contact in contacts.scalars().all()]
