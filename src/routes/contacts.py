@@ -61,6 +61,8 @@ async def search(
         current_user: User = Depends(auth_service.get_current_user)
 ):
     contacts = await repositories_contacts.search_contacts(first_name, second_name, email, db)
+    if contacts is [None]:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='NOT Found contact')
     return contacts
 
 

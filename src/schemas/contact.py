@@ -7,6 +7,7 @@ class ContactSchema(BaseModel):
     email: str = Field(min_length=1, max_length=50)
     birthday: PastDate
     add_info: str = Field(min_length=1, max_length=150)
+    user_id: int
 
     class Config:
         from_attributes = True
