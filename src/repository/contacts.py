@@ -43,6 +43,7 @@ async def update_contact(contact_id: int, body: ContactUpdateSchema, db: AsyncSe
         contact.email = body.email
         contact.birthday = body.birthday
         contact.add_info = body.add_info
+
         await db.commit()
         await db.refresh(contact)
 
