@@ -186,6 +186,17 @@ files = [
 ]
 
 [[package]]
+name = "certifi"
+version = "2023.11.17"
+description = "Python package for providing Mozilla's CA Bundle."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "certifi-2023.11.17-py3-none-any.whl", hash = "sha256:e036ab49d5b79556f99cfc2d9320b34cfbe5be05c5871b51de9329f0603b0474"},
+    {file = "certifi-2023.11.17.tar.gz", hash = "sha256:9b469f3a900bf28dc19b8cfbf8019bf47f7fdd1a65a1d4ffb98fc14166beb4d1"},
+]
+
+[[package]]
 name = "cffi"
 version = "1.16.0"
 description = "Foreign Function Interface for Python calling C code."
@@ -262,6 +273,24 @@ files = [
 
 [package.dependencies]
 colorama = {version = "*", markers = "platform_system == \"Windows\""}
+
+[[package]]
+name = "cloudinary"
+version = "1.37.0"
+description = "Python and Django SDK for Cloudinary"
+optional = false
+python-versions = "*"
+files = [
+    {file = "cloudinary-1.37.0.tar.gz", hash = "sha256:5f6441a4dd839951032508d88068bd705eee9d58802c321cddc84e0a67ea202b"},
+]
+
+[package.dependencies]
+certifi = "*"
+six = "*"
+urllib3 = ">=1.26.5"
+
+[package.extras]
+dev = ["tox"]
 
 [[package]]
 name = "colorama"
@@ -427,6 +456,21 @@ doc = ["markdown-include (>=0.5.1,<0.6.0)", "mkdocs (>=1.1.2,<2.0.0)", "mkdocs-m
 test = ["coveralls (==2.1.2)", "pytest (==6.0.1)", "pytest-cov (==2.10.0)"]
 
 [[package]]
+name = "fastapi-limiter"
+version = "0.1.5"
+description = "A request rate limiter for fastapi"
+optional = false
+python-versions = ">=3.7,<4.0"
+files = [
+    {file = "fastapi-limiter-0.1.5.tar.gz", hash = "sha256:546be0fef3b10c19ab3ed2b9c47c5a3ac1924e71210bc1254445a059430bf3b7"},
+    {file = "fastapi_limiter-0.1.5-py3-none-any.whl", hash = "sha256:f01681f3927b0750ff642e1d8dcde6c0f79d1b1dfd8164b909a74e7c75b8cce6"},
+]
+
+[package.dependencies]
+fastapi = "*"
+redis = ">=4.2.0rc1,<5.0.0"
+
+[[package]]
 name = "fastapi-mail"
 version = "1.4.1"
 description = "Simple lightweight mail library for FastApi"
@@ -449,6 +493,16 @@ starlette = ">=0.24,<1.0"
 [package.extras]
 httpx = ["httpx[httpx] (>=0.23,<0.24)"]
 redis = ["redis[redis] (>=4.3,<5.0)"]
+
+[[package]]
+name = "gravatar"
+version = "0.1"
+description = "Gravatar generator. Includes all API parameters included in their documentation."
+optional = false
+python-versions = "*"
+files = [
+    {file = "gravatar-0.1.tar.gz", hash = "sha256:83b3ec36b8f7725da8e1058ef2ca67c708d8a5b962499faf69d39a2e2534047c"},
+]
 
 [[package]]
 name = "greenlet"
@@ -606,6 +660,17 @@ MarkupSafe = ">=2.0"
 
 [package.extras]
 i18n = ["Babel (>=2.7)"]
+
+[[package]]
+name = "libgravatar"
+version = "1.0.4"
+description = "A library that provides a Python 3 interface for the Gravatar API."
+optional = false
+python-versions = "*"
+files = [
+    {file = "libgravatar-1.0.4-py2.py3-none-any.whl", hash = "sha256:f967619b38914e0f941e53387881005e43929814571103f6bbfa2afd75045e20"},
+    {file = "libgravatar-1.0.4.tar.gz", hash = "sha256:05cf4f8dfefe995d09078cd3d747c8f04dcf17d6004fc7bb542049a55f2238d9"},
+]
 
 [[package]]
 name = "mako"
@@ -1034,6 +1099,24 @@ files = [
 ]
 
 [[package]]
+name = "redis"
+version = "4.6.0"
+description = "Python client for Redis database and key-value store"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "redis-4.6.0-py3-none-any.whl", hash = "sha256:e2b03db868160ee4591de3cb90d40ebb50a90dd302138775937f6a42b7ed183c"},
+    {file = "redis-4.6.0.tar.gz", hash = "sha256:585dc516b9eb042a619ef0a39c3d7d55fe81bdb4df09a52c9cdde0d07bf1aa7d"},
+]
+
+[package.dependencies]
+async-timeout = {version = ">=4.0.2", markers = "python_full_version <= \"3.11.2\""}
+
+[package.extras]
+hiredis = ["hiredis (>=1.0.0)"]
+ocsp = ["cryptography (>=36.0.1)", "pyopenssl (==20.0.1)", "requests (>=2.26.0)"]
+
+[[package]]
 name = "rsa"
 version = "4.9"
 description = "Pure-Python RSA implementation"
@@ -1183,6 +1266,22 @@ files = [
     {file = "typing_extensions-4.8.0-py3-none-any.whl", hash = "sha256:8f92fc8806f9a6b641eaa5318da32b44d401efaac0f6678c9bc448ba3605faa0"},
     {file = "typing_extensions-4.8.0.tar.gz", hash = "sha256:df8e4339e9cb77357558cbdbceca33c303714cf861d1eef15e1070055ae8b7ef"},
 ]
+
+[[package]]
+name = "urllib3"
+version = "2.1.0"
+description = "HTTP library with thread-safe connection pooling, file post, and more."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "urllib3-2.1.0-py3-none-any.whl", hash = "sha256:55901e917a5896a349ff771be919f8bd99aff50b79fe58fec595eb37bbc56bb3"},
+    {file = "urllib3-2.1.0.tar.gz", hash = "sha256:df7aa8afb0148fa78488e7899b2c59b5f4ffcfa82e6c54ccb9dd37c1d7b52d54"},
+]
+
+[package.extras]
+brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)"]
+socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
+zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "uvicorn"
@@ -1425,4 +1524,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "54fbbd975e8e40b31fc9024f51e04b55dc733fcdd9cf8b12b9dd3d236a71c7ab"
+content-hash = "b2a78eee90d21188b6455d56143b35bb7c175e6b4e3264118588205a6d001fd5"

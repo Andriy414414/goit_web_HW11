@@ -1,6 +1,8 @@
+import pickle
 from datetime import datetime, timedelta
 from typing import Optional
 
+import redis
 from fastapi import Depends, HTTPException, status
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer
@@ -16,6 +18,7 @@ class Auth:
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     SECRET_KEY = config.SECRET_KEY_JWT
     ALGORITHM = config.ALGORITHM
+    cache = redis.Redis(host=config.REDIS_DOMAIN, port=config.REDIS_PORT, db=0, password=config.REDIS_PASSWORD)
 
     def verify_password(self, plain_password, hashed_password):
         return self.pwd_context.verify(plain_password, hashed_password)
@@ -76,9 +79,19 @@ class Auth:
         except JWTError as e:
             raise credentials_exception
 
-        user = await repository_users.get_user_by_email(email, db)
+        user_hash = str(email)
+        user = self.cache.get(user_hash)
+
         if user is None:
-            raise credentials_exception
+            print('User BD')
+            user = await repository_users.get_user_by_email(email, db)
+            if user is None:
+                raise credentials_exception
+            self.cache.set(user_hash, pickle.dumps(user))
+            self.cache.expire(user_hash, 300)
+        else:
+            print('User hash')
+            user = pickle.loads(user)
         return user
 
     def create_email_token(self, data: dict):
@@ -97,7 +110,6 @@ class Auth:
             print(e)
             raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                                 detail="Invalid token for email verification")
-
 
 
 auth_service = Auth()
