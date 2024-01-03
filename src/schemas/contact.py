@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field, PastDate
+from pydantic import BaseModel, EmailStr, Field, PastDate, ConfigDict
 
 
 class ContactSchema(BaseModel):
@@ -8,9 +8,7 @@ class ContactSchema(BaseModel):
     birthday: PastDate
     add_info: str = Field(min_length=1, max_length=150)
     user_id: int
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)  # noqa
 
 
 class ContactUpdateSchema(ContactSchema):
@@ -23,6 +21,4 @@ class ContactResponse(ContactSchema):
     email: str
     birthday: PastDate
     add_info: str
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True) # noqa

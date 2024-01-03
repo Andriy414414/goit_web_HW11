@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, ConfigDict
 
 
 class UserSchema(BaseModel):
@@ -7,13 +7,12 @@ class UserSchema(BaseModel):
     password: str = Field(min_length=6, max_length=800)
 
 
+
 class UserResponse(UserSchema):
     id: int = 1
     username: str
     email: str
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)  # noqa
 
 
 class TokenSchema(BaseModel):

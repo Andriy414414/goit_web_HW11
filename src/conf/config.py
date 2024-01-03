@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     MAIL_SERVER: str = 'smtp.meta.ua'
     REDIS_DOMAIN: str = 'localhost'
     REDIS_PORT: int = 6379
-    REDIS_PASSWORD: str = None
+    REDIS_PASSWORD: str = '111111'
     CLD_NAME: str = "abc"
     CLD_API_KEY: int = 37249843695273
     CLD_API_SECRET: str = "secret"

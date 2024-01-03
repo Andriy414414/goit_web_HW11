@@ -15,10 +15,41 @@ from src.conf.config import config
 
 
 class Auth:
+    """
+    Class for authentication
+
+    :param pwd_context: CryptContext: CryptContext for password hashing
+    :param SECRET_KEY: str: Secret key for JWT
+    :param ALGORITHM: str: Algorithm for JWT
+    :param cache: redis.Redis: Redis for caching
+    :param oauth2_scheme: OAuth2PasswordBearer: OAuth2PasswordBearer for authentication
+    :param verify_password: verify_password: Function for password verification
+    :param get_password_hash: get_password_hash: Function for password hashing
+    :param create_access_token: create_access_token: Function for creating access token
+    :param create_refresh_token: create_refresh_token: Function for creating refresh token
+    :param get_current_user: get_current_user: Function for getting current user
+    :param get_current_active_user: get_current_active_user: Function for getting current active user
+    :param get_user_by_email: get_user_by_email: Function for getting user by email
+    :param get_user_by_token: get_user_by_token: Function for getting user by token
+    :param get_user_by_refresh_token: get_user_by_refresh_token: Function for getting user by refresh token
+    :param get_user_by_username: get_user_by_username: Function for getting user by username
+    :param update_token: update_token: Function for updating token
+    :param delete_token: delete_token: Function for deleting token
+    :param delete_refresh_token: delete_refresh_token: Function for deleting refresh token
+    :param delete_all_tokens: delete_all_tokens: Function for deleting all tokens
+    :param delete_all_refresh_tokens: delete_all_refresh_tokens: Function for deleting all refresh tokens
+    :param delete_user: delete_user: Function for deleting user
+    :param delete_all_users: delete_all_users: Function for deleting all users
+    :param send_email: send_email: Function for sending email
+    :param create_superuser: create_superuser: Function for creating superuser
+    :param create_user: create_user: Function for creating user
+    :param get_current_superuser: get_current_superuser: Function for getting current superuser
+    :param get_user_by_id: get_user_by_id: Function for getting user by id
+    """
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     SECRET_KEY = config.SECRET_KEY_JWT
     ALGORITHM = config.ALGORITHM
-    cache = redis.Redis(host=config.REDIS_DOMAIN, port=config.REDIS_PORT, db=0, password=config.REDIS_PASSWORD)
+    cache = redis.Redis(host=config.REDIS_DOMAIN, port=config.REDIS_PORT, password=config.REDIS_PASSWORD, db=0)
 
     def verify_password(self, plain_password, hashed_password):
         return self.pwd_context.verify(plain_password, hashed_password)
